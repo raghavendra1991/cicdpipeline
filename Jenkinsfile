@@ -37,5 +37,10 @@ pipeline {
          }
       }
     }
+    stage ('Archive artifacts') {
+        steps {
+           archiveArtifacts artifacts: 'target/*.war'
+        }
+    }	  
   }
 }
