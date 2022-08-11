@@ -17,7 +17,7 @@ pipeline {
 	    }
       steps {
          withSonarQubeEnv('admin') {
-            sh "mvn clean verify sonar:sonar -Dsonar.projectKey=mavenproject"
+            sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject"
          }
       }
     }
