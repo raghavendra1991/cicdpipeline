@@ -17,7 +17,10 @@ pipeline {
 	    }
       steps {
          withSonarQubeEnv('admin') {
-            sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject"
+            sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject \
+		 -Dsonar.java.coveragePlugin=jacoco \
+                 -Dsonar.jacoco.reportPaths=target/jacoco.exec \
+    	         -Dsonar.junit.reportsPaths=target/surefire-reports"
          }
       }
     }
