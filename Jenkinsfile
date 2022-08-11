@@ -5,16 +5,21 @@ pipeline {
       jdk 'JAVA_HOME'
   }
   stages {
-    stage('Initialize'){
-      steps{
+    stage ("Initialize") {
+      steps {
           echo "PATH = ${M2_HOME}/bin:${PATH}"
           echo "M2_HOME = /opt/maven"
       }
     }
-    stage ("build & SonarQube analysis") {
+    stage ("Build & Test") {
+      steps {
+	  sh "mvn clean compile test package"
+      }
+    }
+    stage ("SonarQube analysis") {
       environment {
 	       scannerHome = tool 'SonarQube Scanner'
-	    }
+      }
       steps {
          withSonarQubeEnv('admin') {
             sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject \
