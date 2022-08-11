@@ -18,7 +18,7 @@ pipeline {
 	       scannerHome = tool 'SonarQube Scanner'
 	    }
       steps {
-         withSonarQubeEnv() {
+         withSonarQubeEnv('admin') {
             sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject"
          }
       }
