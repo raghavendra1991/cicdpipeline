@@ -13,13 +13,13 @@ pipeline {
           echo "M2_HOME = /opt/maven"
       }
     }
-    stage ('Build') {
+    stage ("build & SonarQube analysis") {
       environment {
 	       scannerHome = tool 'SonarQube Scanner'
 	    }
       steps {
          withSonarQubeEnv('admin') {
-            sh "mvn clean verify install sonar:sonar -Dsonar.projectKey=mavenproject"
+            sh "mvn clean verify sonar:sonar -Dsonar.projectKey=mavenproject"
          }
       }
     }
