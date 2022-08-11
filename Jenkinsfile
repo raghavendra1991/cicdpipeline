@@ -1,9 +1,7 @@
 pipeline {
-  agent { label 'slave' }
-    tools {
-      maven 'Maven'
-      jdk 'JAVA_HOME'
-    }
+  agent { 
+    label 'slave' 
+  }
   stages {
    stage ('Maven Build') {
       steps {
