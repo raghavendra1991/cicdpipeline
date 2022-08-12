@@ -33,14 +33,24 @@ pipeline {
       }
       post {
          success {
-            junit 'target/surefire-reports/**/*.xml' 
+            archiveArtifacts artifacts: 'target/*.war' 
          }
       }
     }
-    stage ('Archive artifacts') {
-        steps {
-           archiveArtifacts artifacts: 'target/*.war'
-        }
-    }	  
+    stage('Deploy Atrifacts') {
+	  steps {
+	      rtUpload (
+		 serverId: 'JFrog',
+		 spec: '''{
+ 			"files" :[
+			  {
+		            "pattern": "target/*.war",
+		            "target": "maven/"
+	         	  }
+		        ]
+		 }'''
+	     )
+	 }
+     }	  
   }
 }
